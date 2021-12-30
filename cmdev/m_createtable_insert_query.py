@@ -51,30 +51,8 @@ print(product.id,product.name,product.price,product.stock)
 
 # Query with or_ condition
 print('Query with or_ condition')
-products = session.query(Product).filter(or_(Product.name=='Arduino',Product.name=='LED'))
+products = session.query(Product).filter(or_(Product.name=='Arduino',Product.name=='NodeMCU'))
 for product in products:
     print(product.id,product.name,product.price,product.stock)
     
-# update single
-product = session.query(Product).filter(Product.id==1).first()
-product.name= 'CodeOne'
-product.stock= 20
-session.commit()
 
-# Query with condition
-print('Query with condition')
-product = session.query(Product).filter(Product.id==1).first()
-print(product.id,product.name,product.price,product.stock)
-    
-# update multiple row
-products = session.query(Product).filter(Product.name=='LED')
-products.update({Product.name:'LCD'}) # key-value
-session.commit()
-
-# Query all
-print('Query all')
-products = session.query(Product)
-for product in products:
-    print(product.id,product.name,product.price,product.stock)
-   
-    
