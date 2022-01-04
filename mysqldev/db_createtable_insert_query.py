@@ -2,6 +2,7 @@ from sqlalchemy import create_engine,DateTime,func,TIMESTAMP, Column, Integer, F
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+
 #engine = create_engine('sqlite:///cmstock.db')
 #@ MariaDB: Create DB "cmdev" charset=utf8mb4_general_ci (faster sorting), for use sqlalchemy charset = utf8mb4 
 engine = create_engine('mysql+pymysql://root:1234@127.0.0.1/cmdev?charset=utf8mb4')
@@ -25,5 +26,35 @@ Base.metadata.create_all(engine) # create table and file*.db
 
 # Prepare data; Insert(add), commit(go)
 productone = Product(name='Arduino', price=100.50, stock=10)
-session.add(productone)
+session.add(productone) # add single
 session.commit()
+
+# Batch Prepare data; Insert(add), commit(go)
+productone = Product(name='Arduino', price=100.50, stock=10)
+producttwo = Product(name='NodeMCU', price=200, stock=11)
+productthree = Product(name='LED', price=1, stock=211)
+
+#session.add(productone) # add single
+session.add_all([productone,producttwo,productthree]) # add batch
+session.commit()
+
+# Query all
+print('Query all')
+products = session.query(Product)
+for product in products:
+    print(product.id,product.name,product.price,product.stock)
+    
+
+# Query with condition
+print('Query with condition')
+product = session.query(Product).filter(Product.name=='Arduino').first()
+print(product.id,product.name,product.price,product.stock)
+    
+
+# Query with or_ condition
+print('Query with or_ condition')
+products = session.query(Product).filter(or_(Product.name=='Arduino',Product.name=='NodeMCU'))
+for product in products:
+    print(product.id,product.name,product.price,product.stock)
+    
+
