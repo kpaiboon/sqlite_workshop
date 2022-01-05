@@ -2,8 +2,8 @@ from sqlalchemy import create_engine,DateTime,func,TIMESTAMP, Column, Integer, F
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-
-engine = create_engine('sqlite:///cmstock.db')
+#engine = create_engine('sqlite:///cmstock.db')
+engine = create_engine('postgresql://postgres:1234@localhost:5432/cmdev')
 Session = sessionmaker(bind=engine)
 session = Session()
 
