@@ -16,7 +16,7 @@ class Product(Base):
     name = Column(String(50))
     price = Column(Float)
     stock = Column(Integer)
-    #time_created = Column(DateTime(timezone=True), server_default=func.now())
+    time_created = Column(DateTime(timezone=True), server_default=func.now())
     #time_updated = Column(DateTime(timezone=True), onupdate=func.now())
     time_updated = Column(DateTime(timezone=True), nullable=False,server_default=func.now(),onupdate=func.now())
     #ts= Column('time_updated', TIMESTAMP, nullable=False,server_default=func.now(),onupdate=func.now())

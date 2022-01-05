@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine,DateTime,func,TIMESTAMP, Column,BigInteger, Integer, Float, String, or_, update
+from sqlalchemy import create_engine,DateTime,func,TIMESTAMP, Column,BigInteger,FetchedValue, Integer, Float, String, or_, update
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -16,7 +16,7 @@ class Product(Base):
     name = Column(String(50))
     price = Column(Float)
     stock = Column(Integer)
-    #time_created = Column(DateTime(timezone=True), server_default=func.now())
+    time_created = Column(DateTime(timezone=True), server_default=func.now())
     #time_updated = Column(DateTime(timezone=True), onupdate=func.now())
     time_updated = Column(DateTime(timezone=True), nullable=False,server_default=func.now(),onupdate=func.now())
     #ts= Column('time_updated', TIMESTAMP, nullable=False,server_default=func.now(),onupdate=func.now())
@@ -58,7 +58,7 @@ for product in products:
     
 # update single
 product = session.query(Product).filter(Product.id==1).first()
-product.name= 'CodeOne'
+product.name= 'CodeOne111'
 product.stock= 20
 session.commit()
 
